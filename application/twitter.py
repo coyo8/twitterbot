@@ -3,10 +3,10 @@ from twitter import Twitter, OAuth, TwitterHTTPError
 import sys
 
 
-OAUTH_TOKEN = 'your token'
-OAUTH_SECRET = 'your token'
-CONSUMER_KEY = 'your token'
-CONSUMER_SECRET = 'your token'
+OAUTH_TOKEN = '412885242-iFIYh67iQbtIGfCVdRjSEVA4riyPV1IjUJs3JK6M'
+OAUTH_SECRET = 'A0gq1puvccsDpMugq7DVg2LdJuDBLpbLR8IECF5lWlscx'
+CONSUMER_KEY = 'aW5kyF78jJaM4OSiXUxHMYQht'
+CONSUMER_SECRET = 'ZCBxEQf2HlwNojydT6PacuHXnboyK2nZpS9tffmMCPIXljf5m4'
 
 t = Twitter(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
  

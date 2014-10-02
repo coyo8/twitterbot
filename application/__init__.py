@@ -1,11 +1,13 @@
 from flask import Flask, render_template, session
 from flask.ext.sqlalchemy import SQLAlchemy
 from celery import Celery
+from flask.ext.login import LoginManager
 # Create the app and configuration
 # Read the configuration file
 app = Flask(__name__)
 app.config.from_object('application.default_settings')
 app.config.from_envvar('PRODUCTION_SETTINGS', silent=True)
+app.config['WTF_CSRF_ENABLED'] = False
 
 app.config.update(
     CELERY_BROKER_URL='redis://localhost:6379',
@@ -26,11 +28,14 @@ def create_celery_app(app):
 	
 	celery.Task = ContextTask
 	return celery
-	
+
 
 celery = create_celery_app(app)
 # Connect to database with sqlalchemy.
 db = SQLAlchemy(app)
+
+lm = LoginManager()
+lm.init_app(app)
 
 
 # 404 page not found "route"

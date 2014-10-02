@@ -1,7 +1,5 @@
-from application import db
 from celery.signals import task_postrun
-from flask.ext.mail import Message
-from application import celery
+from application import celery, db
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
