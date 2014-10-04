@@ -81,15 +81,13 @@ def hashtag():
 
     if request.method == 'POST' and form.validate():
         hashtag = Hashtag(form.hashtag.data)
+        hashtag.user_id = g.user.id
         print form.hashtag.data
         db.session.add(hashtag)
-        db.session.commit()
         flash('HashTag added')
-        Hashtag.update().values(user_id=g.user.id)
+        db.session.commit()
         return redirect(url_for('index'))
     return render_template('info/hashtag.html', form=form)
-
-
 
 @app.route('/logout')
 def logout():

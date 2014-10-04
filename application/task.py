@@ -5,7 +5,7 @@ from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
 from flask import current_app
 from datetime import datetime
-from application.twitter import TwitterFav
+from application.favoritetweet import TwitterFav
 
 
 logger = get_task_logger(__name__)
@@ -18,10 +18,9 @@ def celery_prerun(*args, **kwargs):
 @celery.task
 def retweet(*recepients):
 	logger.info("Start task")
-	print "Retweeted"
 	logger.info("Task finished: result")
 
-@periodic_task(run_every=(crontab(minute='*')))
+@periodic_task(run_every=(crontab(minute='*/30')))
 def favorite_tweet():
 	logger.info("Start task")
 	with celery.app.app_context():
