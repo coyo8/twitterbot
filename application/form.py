@@ -19,6 +19,8 @@ class TokenForm(Form):
     consumer_key = TextField('CONSUMER KEY', validators=[validators.Required()])
     consumer_secret = TextField('CONSUMER SECRET', validators=[validators.Required()])
 
+class HashTagForm(Form):
+    hashtag = TextField('Hash Tags', validators=[validators.Required()])
 
 try:
 	from flask.ext.wtf import Form

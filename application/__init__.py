@@ -18,8 +18,10 @@ app.config.update(
     CELERY_RESULT_BACKEND='redis://localhost:6379'
 )
 # Connect to database with sqlalchemy.
+lm.init_app(app)
+db.init_app(app)
 
-def create_celery_app(app):
+def create_celery_app(app=None):
 	celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
 	celery.conf.update(app.config)
 	Taskbase = celery.Task
@@ -32,12 +34,11 @@ def create_celery_app(app):
 				return Taskbase.__call__(self, *args, **kwargs)
 
 	celery.Task = ContextTask
+	# very important line for app context
+	celery.app = app
 	return celery
 
 celery = create_celery_app(app)
-
-lm.init_app(app)
-db.init_app(app)
 
 # 404 page not found "route"
 @app.errorhandler(404)

@@ -1,7 +1,7 @@
 from application import app, lm, db
 from flask import session, redirect, url_for, request, flash, render_template, g, session
 from flask.ext.login import login_user, logout_user, current_user, login_required
-from application.models import User
+from application.models import User, Hashtag
 from application.form import *
 
 @app.before_request
@@ -20,6 +20,7 @@ def index():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+
     if current_user.is_authenticated():
         return redirect(url_for("home", username=current_user.username))
 
@@ -72,6 +73,22 @@ def token():
         db.session.commit()
         return redirect(url_for("index"))
     return render_template('info/token.html', form=form)
+
+@app.route('/hashtag', methods=['GET', 'POST'])
+@login_required
+def hashtag():
+    form = HashTagForm(request.form)
+
+    if request.method == 'POST' and form.validate():
+        hashtag = Hashtag(form.hashtag.data)
+        print form.hashtag.data
+        db.session.add(hashtag)
+        db.session.commit()
+        flash('HashTag added')
+        Hashtag.update().values(user_id=g.user.id)
+        return redirect(url_for('index'))
+    return render_template('info/hashtag.html', form=form)
+
 
 
 @app.route('/logout')

@@ -13,7 +13,7 @@ class User(db.Model):
     auth_secret = db.Column(db.String(80), nullable=False)
     consumer_key = db.Column(db.String(80), nullable=False)
     consumer_secret = db.Column(db.String(80), nullable=False)
-    job_status = db.Column(db.Boolean(), nullable=False)
+    job_status = db.Column(db.Boolean(), unique=False, default=True)
 
 
     def __init__(self, username, email, password):
@@ -51,7 +51,8 @@ class User(db.Model):
 
 class Hashtag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    tag = db.Column(db.String(100), unique=True)
+    tag = db.Column(db.String(100))
+    user_id = db.Column(db.Integer)
 
     def __init__(self, tag):
         self.tag = tag

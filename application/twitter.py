@@ -12,6 +12,8 @@ class TwitterFav():
         CONSUMER_KEY = user.consumer_key
         CONSUMER_SECRET = user.consumer_secret
 
+        print OAUTH_SECRET, OAUTH_TOKEN
+
         self.t = Twitter(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
 
         if self.t != None:
@@ -32,6 +34,7 @@ class TwitterFav():
 
     def favoriteTweets(self):
         userList = self.query()
+        print userList
 
         for user in userList:
             if self.get_outh(user):
@@ -39,7 +42,6 @@ class TwitterFav():
                 if len(tagList) < 19:
                     for tag in tagList:
                         self.search_and_fav(tag, 10)
-
 
     def search_tweets(self, q, count=100, max_id=None):
     	return self.t.search.tweets(q=q, result_type='recent', count=count, lang="en", max_id=max_id)

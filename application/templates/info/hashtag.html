@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+{% from "info/_formhelper.html" import render_field %}
+  <div align="center">
+    <form method=post action="/hashtag">
+      <dl>
+        {{ render_field(form.hashtag) }}
+      </dl>
+      <p><input type=submit value=Save>
+    </form>
+  </div>
+{% endblock %}
