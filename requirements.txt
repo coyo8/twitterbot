@@ -21,6 +21,7 @@ gunicorn==0.17.2
 kombu==3.0.23
 oauthlib==0.6.3
 paramiko==1.15.1
+psycopg2==2.5.4
 pycrypto==2.6.1
 pytz==2014.7
 redis==2.10.3
