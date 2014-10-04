@@ -3,7 +3,6 @@ from application import celery, db
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
-from flask import current_app
 from datetime import datetime
 from application.favoritetweet import TwitterFav
 

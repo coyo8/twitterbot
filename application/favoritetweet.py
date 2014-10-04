@@ -1,5 +1,5 @@
-from twitter import *
-from application.models import User, Hashtag
+from twitter import Twitter
+#from application.models import User, Hashtag
 import sys
 
 class TwitterFav():
@@ -12,7 +12,7 @@ class TwitterFav():
         CONSUMER_KEY = user.consumer_key
         CONSUMER_SECRET = user.consumer_secret
 
-        print OAUTH_SECRET, OAUTH_TOKEN
+        #print OAUTH_SECRET, OAUTH_TOKEN
 
         self.t = Twitter(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
 
@@ -34,7 +34,7 @@ class TwitterFav():
 
     def favoriteTweets(self):
         userList = self.query()
-        print userList
+        #print userList
 
         for user in userList:
             if self.get_outh(user):

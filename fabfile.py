@@ -4,7 +4,7 @@ from fabric.api import *
 # start with the default server
 def run():
     """ Start with the default server """
-    local('python runserver.py')
+    local('python runserver.py runserver')
 
 
 # start with unicorn server.
