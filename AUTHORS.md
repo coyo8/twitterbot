@@ -1,7 +1,7 @@
 Development Lead
 ---
 
-- Alberto Grespan <albertogrespan@gmail.com>
+- Rahul Ranjan <rahul.rrixe@gmail.com>
 
 Patches and Suggestions
 ---

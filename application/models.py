@@ -9,11 +9,23 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(80))
+    auth_token = db.Column(db.String(80), nullable=False)
+    auth_secret = db.Column(db.String(80), nullable=False)
+    consumer_key = db.Column(db.String(80), nullable=False)
+    consumer_secret = db.Column(db.String(80), nullable=False)
+    job_status = db.Column(db.Boolean(), nullable=False)
+
 
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.password = password
+        self.auth_token = ''
+        self.auth_secret = ''
+        self.consumer_key = ''
+        self.consumer_secret = ''
+        self.job_status = False
+
 
     def set_password(self, password):
         self.password = password

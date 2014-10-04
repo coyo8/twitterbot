@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+{% from "info/_formhelper.html" import render_field %}
+  <div align="center">
+    <form method=post action="/token">
+      <dl>
+        {{ render_field(form.auth_token) }}
+        {{ render_field(form.auth_secret) }}
+        {{ render_field(form.consumer_key) }}
+        {{ render_field(form.consumer_secret) }}
+      </dl>
+      <p><input type=submit value=Save>
+    </form>
+  </div>
+{% endblock %}

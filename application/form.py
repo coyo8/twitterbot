@@ -1,5 +1,6 @@
-from wtforms import Form, TextField, BooleanField, PasswordField, TextAreaField, validators
+from wtforms import Form, TextField, BooleanField, PasswordField, TextAreaField, validators, SubmitField
 from application.models import User
+from flask.ext.login import login_user
 
 class RegistrationForm(Form):
     username = TextField('Username', [validators.Length(min=4, max=25)])
@@ -11,10 +12,18 @@ class RegistrationForm(Form):
     confirm = PasswordField('Repeat Password')
     accept_tos = BooleanField('I accept the TOS', [validators.Required()])
 
+
+class TokenForm(Form):
+    auth_token = TextField('OAUTH TOKEN', validators=[validators.Required()])
+    auth_secret = TextField('OAUTH SECRET', validators=[validators.Required()])
+    consumer_key = TextField('CONSUMER KEY', validators=[validators.Required()])
+    consumer_secret = TextField('CONSUMER SECRET', validators=[validators.Required()])
+
+
 try:
 	from flask.ext.wtf import Form
 except ImportError:
-	print "Not WTF module" 
+	print "Not WTF module"
 
 class LoginForm(Form):
     username = TextField('Username')
@@ -41,4 +50,8 @@ class LoginForm(Form):
             return False
 
         self.user = user
+        login_user(user)
+
         return True
+
+
