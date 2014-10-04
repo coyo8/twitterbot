@@ -2,6 +2,7 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+# config file for production
 class Config:
 	SECRET_KEY = os.environ.get('SECRET_KEY') or 'thisI$immp0sibble334!22@'
 	SQLALCHEMY_COMMIT_ON_TEARDOWN = True
