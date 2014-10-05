@@ -22,6 +22,7 @@ def index():
 def register():
 
     if current_user.is_authenticated():
+        flash('Please logout to register as a new user')
         return redirect(url_for("home", username=current_user.username))
 
     form = RegistrationForm(request.form)
@@ -38,6 +39,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated():
+        flash('Already logged in')
         return redirect(url_for("home", username=current_user.username))
 
     form = LoginForm()
@@ -71,6 +73,7 @@ def token():
         user.consumer_key = form.consumer_key.data
         user.consumer_secret = form.consumer_secret.data
         db.session.commit()
+        flash('Successfully added the token')
         return redirect(url_for("index"))
     return render_template('info/token.html', form=form)
 

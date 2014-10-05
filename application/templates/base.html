@@ -17,9 +17,20 @@
   <div id="wrap">
     {% include 'header.html' %}
     <div class="container">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                  {% for message in messages %}
+                    <li>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+            {% endif %}
+          {% endwith %}
           {% block content %}{% endblock %}
     </div> <!-- container-fluid -->
-    <div id="push"></div>
+    <div id="push">
+
+    </div>
   </div> <!-- wrap id -->
 
   {% include 'footer.html' %}

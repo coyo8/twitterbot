@@ -34,24 +34,21 @@ class TwitterFav():
 
     def favoriteTweets(self):
         userList = self.query()
-        #print userList
 
         for user in userList:
             if self.get_outh(user):
                 tagList = self.get_hashtag(user.id)
                 if len(tagList) < 19:
                     for tag in tagList:
-                        self.search_and_fav(tag, 10)
+                        self.search_and_fav(tag.tag, 10)
 
     def search_tweets(self, q, count=100, max_id=None):
     	return self.t.search.tweets(q=q, result_type='recent', count=count, lang="en", max_id=max_id)
 
-        print sys.stdout.encoding
-
     def favorites_create(self, tweet):
         try:
             result = self.t.favorites.create(_id=tweet['id'])
-            print "Favorited: %s, %s" % (result['text'].encode(sys.stdout.encoding, errors='replace'), result['id'])
+            print "Favorited"
             return result
         except TwitterHTTPError as e:
             print "Error: ", e
