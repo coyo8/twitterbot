@@ -18,11 +18,6 @@ $ git remote set-url origin git@github.com:rahulrrixe/twitterbot.git
 ![Index pic](http://i.imgur.com/f2xI37r.png?1 "index")
 ** index.html **
 
-Code Status
----
-[![Build Status](https://travis-ci.org/rahulrrixe/flask-bootstrap.png)](https://travis-ci.org/albertogg/flask-bootstrap)
-
-
 Requirements
 ---
 * Python 2.7 or 2.6
