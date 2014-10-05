@@ -18,8 +18,10 @@ class Config:
 		pass
 
 class ProductionConfig(Config):
-	SQLALCHEMY_DATABASE_URI = str(os.environ.get('DATABASE_URL', 'postgres://lihzvhzpvtdlab:wg0oQhLscl-gaxtvmAMzP9S7VM@ec2-54-225-243-113.compute-1.amazonaws.com:5432/d3u7hnmcll7rof'))
-	#SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'appnew.db')
+	if os.environ.get('DATABASE_URL'):
+		SQLALCHEMY_DATABASE_URI = str(os.environ.get('DATABASE_URL'))
+	else:
+		SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'appnew.db')
 
 config = {
 	'default': ProductionConfig

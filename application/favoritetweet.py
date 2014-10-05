@@ -1,5 +1,5 @@
-from twitter import Twitter
-#from application.models import User, Hashtag
+from twitter import *
+from application.models import User, Hashtag
 import sys
 
 class TwitterFav():
