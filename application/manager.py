@@ -99,6 +99,7 @@ def delete_hashtag(id):
     del_tag = Hashtag.query.filter_by(id=id).first()
     if del_tag and del_tag.user_id == g.user.id:
         db.session.delete(del_tag)
+        db.session.commit()
         flash('HashTag Deleted succesfully')
     return redirect(url_for('hashtag'))
 
@@ -112,6 +113,7 @@ def toggle():
         else:
             user.job_status = True
     db.session.add(user)
+    db.session.commit()
     flash('Job status changed')
     return redirect(url_for('home'))
 
