@@ -4,12 +4,21 @@
 <div class="row">
   <div class="span8">
     <div class="centered">
-      <h1 class="fascinate-font">Hello, {{ username }}</h1>
+      <h1 class="fascinate-font">Hello, {{ user.username }}</h1>
     </div>
     <div align="center">
+      {% if user.job_status %}
+        <p> Job is running </p>
+      {% else %}
+        <p> Job is not Running </p>
+      {% endif %}
+      <br/>
+      <br/>
     	<a href="/token"> Add Tweeter Credentials </a>
     	<br/>
     	<a href="/hashtag"> Add Hash Tags </a>
+      <br/>
+      <a href="/toggle"> Toggle job </a>
     </div>
     <div>
   </div>

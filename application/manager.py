@@ -23,7 +23,7 @@ def register():
 
     if current_user.is_authenticated():
         flash('Please logout to register as a new user')
-        return redirect(url_for("home", username=current_user.username))
+        return redirect(url_for("home", user=g.user))
 
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -40,13 +40,13 @@ def register():
 def login():
     if current_user.is_authenticated():
         flash('Already logged in')
-        return redirect(url_for("home", username=current_user.username))
+        return redirect(url_for("home", user=g.user))
 
     form = LoginForm()
     if form.validate_on_submit():
         flash(u'Successfully logged in as %s' % form.user.username)
         session['user_id'] = form.user.id
-        return redirect(url_for('home', username=form.username.data))
+        return redirect(url_for('home', user=g.user))
     return render_template('info/login.html', form=form)
 
 @app.route('/user')
@@ -54,13 +54,14 @@ def user():
     if current_user.is_authenticated():
         return redirect(url_for("home", username=current_user.username))
     else:
-        return render_template('info/hello.html', title="Hi Guest!" , username='Guest!')
+        return render_template('info/hello.html', title="Hi Guest!" , user=g.user)
 
-@app.route('/home/<username>/')
+@app.route('/home')
 @login_required
-def home(username):
-    return render_template('info/hello.html', title="Flask-App, Hi %s"
-                            % (username), username=username)
+def home():
+    user = User.query.filter_by(id=g.user.id).first()
+    return render_template('info/hello.html', title="Hi %s"
+                            % (user.username), user=user)
 
 @app.route('/token', methods=['GET', 'POST'])
 @login_required
@@ -81,7 +82,7 @@ def token():
 @login_required
 def hashtag():
     form = HashTagForm(request.form)
-
+    disp_hashtag = Hashtag.query.filter_by(user_id=g.user.id).all()
     if request.method == 'POST' and form.validate():
         hashtag = Hashtag(form.hashtag.data)
         hashtag.user_id = g.user.id
@@ -89,8 +90,30 @@ def hashtag():
         db.session.add(hashtag)
         flash('HashTag added')
         db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('info/hashtag.html', form=form)
+        return redirect(url_for('hashtag'))
+    return render_template('info/hashtag.html', form=form, disp_hashtag=disp_hashtag)
+
+@app.route('/hashtag/delete/<id>', methods=['GET', 'POST'])
+@login_required
+def delete_hashtag(id):
+    del_tag = Hashtag.query.filter_by(id=id).first()
+    if del_tag and del_tag.user_id == g.user.id:
+        db.session.delete(del_tag)
+        flash('HashTag Deleted succesfully')
+    return redirect(url_for('hashtag'))
+
+@app.route('/toggle', methods=['GET', 'POST'])
+@login_required
+def toggle():
+    user = User.query.filter_by(id=g.user.id).first()
+    if user:
+        if user.job_status == True:
+            user.job_status = False
+        else:
+            user.job_status = True
+    db.session.add(user)
+    flash('Job status changed')
+    return redirect(url_for('home'))
 
 @app.route('/logout')
 def logout():

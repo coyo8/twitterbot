@@ -24,7 +24,7 @@ class User(db.Model):
         self.auth_secret = ''
         self.consumer_key = ''
         self.consumer_secret = ''
-        self.job_status = True
+        self.job_status = False
 
 
     def set_password(self, password):
