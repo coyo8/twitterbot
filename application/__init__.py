@@ -16,8 +16,8 @@ app.config['WTF_CSRF_ENABLED'] = False
 app.config.update(
     #CELERY_BROKER_URL='redis://localhost:6379',
     #CELERY_RESULT_BACKEND='redis://localhost:6379'
-    CELERY_BROKER_URL='redis://redistogo:cc9e9210b179bf315350183dbb6b84f2@greeneye.redistogo.com:9523/',
-    CELERY_RESULT_BACKEND='redis://redistogo:cc9e9210b179bf315350183dbb6b84f2@greeneye.redistogo.com:9523/'
+    CELERY_BROKER_URL='redis://redistogo:cc9e9210b179bf315350183dbb6b84f2@greeneye.redistogo.com:9523',
+    CELERY_RESULT_BACKEND='redis://redistogo:cc9e9210b179bf315350183dbb6b84f2@greeneye.redistogo.com:9523'
 )
 # Connect to database with sqlalchemy.
 lm.init_app(app)
