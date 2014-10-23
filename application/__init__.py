@@ -3,6 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from celery import Celery
 from flask.ext.login import LoginManager
 from config import config
+import os
 # Create the app and configuration
 # Read the configuration file
 db = SQLAlchemy()
@@ -16,8 +17,8 @@ app.config['WTF_CSRF_ENABLED'] = False
 app.config.update(
     #CELERY_BROKER_URL='redis://localhost:6379',
     #CELERY_RESULT_BACKEND='redis://localhost:6379'
-    CELERY_BROKER_URL='redis://redistogo:cc9e9210b179bf315350183dbb6b84f2@greeneye.redistogo.com:9523',
-    CELERY_RESULT_BACKEND='redis://redistogo:cc9e9210b179bf315350183dbb6b84f2@greeneye.redistogo.com:9523'
+    CELERY_BROKER_URL=os.environ.get('redis://localhost:6379','REDISGREEN_URL'),
+    CELERY_RESULT_BACKEND=os.environ.get('redis://localhost:6379','REDISGREEN_URL')
 )
 # Connect to database with sqlalchemy.
 lm.init_app(app)
