@@ -4,6 +4,7 @@ from application import db
 #Create your own models here and they will be imported automaticaly. or
 #use a model per blueprint.
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
@@ -13,8 +14,8 @@ class User(db.Model):
     auth_secret = db.Column(db.String(80), nullable=False)
     consumer_key = db.Column(db.String(80), nullable=False)
     consumer_secret = db.Column(db.String(80), nullable=False)
+    twitter_handle = db.Column(db.String(80), nullable=False)
     job_status = db.Column(db.Boolean(), unique=False, default=True)
-
 
     def __init__(self, username, email, password):
         self.username = username
@@ -24,8 +25,8 @@ class User(db.Model):
         self.auth_secret = ''
         self.consumer_key = ''
         self.consumer_secret = ''
+        self.twitter_handle = ''
         self.job_status = False
-
 
     def set_password(self, password):
         self.password = password
@@ -57,6 +58,8 @@ class Hashtag(db.Model):
     def __init__(self, tag):
         self.tag = tag
 
+class AlreadyFollow(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
 
 class Log(db.Model):
     id = db.Column(db.Integer, primary_key=True)

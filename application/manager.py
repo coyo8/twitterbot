@@ -69,6 +69,7 @@ def token():
     form = TokenForm(request.form)
     user = User.query.filter_by(username=current_user.username).first()
     if request.method == 'POST' and form.validate():
+        user.twitter_handle = form.twitter_handle.data
         user.auth_token = form.auth_token.data
         user.auth_secret = form.auth_secret.data
         user.consumer_key = form.consumer_key.data

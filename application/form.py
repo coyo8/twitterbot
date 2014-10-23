@@ -14,6 +14,7 @@ class RegistrationForm(Form):
 
 
 class TokenForm(Form):
+    twitter_handle = TextField('TWITTER HANDLE', validators=[validators.Required()])
     auth_token = TextField('OAUTH TOKEN', validators=[validators.Required()])
     auth_secret = TextField('OAUTH SECRET', validators=[validators.Required()])
     consumer_key = TextField('CONSUMER KEY', validators=[validators.Required()])

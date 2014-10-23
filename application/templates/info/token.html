@@ -4,6 +4,7 @@
   <div align="center">
     <form method=post action="/token">
       <dl>
+        {{ render_field(form.twitter_handle) }}
         {{ render_field(form.auth_token) }}
         {{ render_field(form.auth_secret) }}
         {{ render_field(form.consumer_key) }}
