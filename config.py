@@ -23,6 +23,11 @@ class ProductionConfig(Config):
 	else:
 		SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'appnew.db')
 
+	BROKER_URL=os.environ.get('redis://localhost:6379','REDISTOGO_URL')
+	CELERY_RESULT_BACKEND=os.environ.get('redis://localhost:6379','REDISTOGO_URL')
+	CELERY_TASK_SERIALIZER='json'
+	CELERY_ACCEPT_CONTENT=['json', 'msgpack', 'yaml']
+
 config = {
 	'default': ProductionConfig
 }

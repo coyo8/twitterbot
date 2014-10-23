@@ -14,18 +14,12 @@ app = Flask(__name__)
 app.config.from_object(config['default'])
 app.config['WTF_CSRF_ENABLED'] = False
 
-app.config.update(
-    #CELERY_BROKER_URL='redis://localhost:6379',
-    #CELERY_RESULT_BACKEND='redis://localhost:6379'
-    CELERY_BROKER_URL=os.environ.get('redis://localhost:6379','REDISTOGO_URL'),
-    CELERY_RESULT_BACKEND=os.environ.get('redis://localhost:6379','REDISTOGO_URL')
-)
 # Connect to database with sqlalchemy.
 lm.init_app(app)
 db.init_app(app)
 
 def create_celery_app(app=None):
-	celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
+	celery = Celery(app.import_name)
 	celery.conf.update(app.config)
 	Taskbase = celery.Task
 
